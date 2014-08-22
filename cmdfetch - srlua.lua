@@ -241,7 +241,7 @@ lineFunctions["Now Playing"] = function()
     local mpd = socket.connect(mhost,mport)
     local artist,track
     if foobar then
-        local out = receive(foobar,"foobar")
+        local out = receive(foobar,"Foobar2000")
         artist,track = out:match(".+|.+|.+|.+|.+|.+|(.+)|.+|.+|.+|.+|(.+)|")
         foobar:close()
     elseif mpd then
@@ -360,8 +360,8 @@ lineFunctions["Memory"] = function()
     local ramSize = getGood("wmic os get totalvisiblememorysize")
     local ramFree = getGood("wmic os get freephysicalmemory")
     ramUsed = ramSize - ramFree
-    ramUsed = math.floor((tonumber(ramUsed)/1024)+.5)
-    ramSize = math.floor((tonumber(ramSize)/1024)+.5)
+    ramUsed = math.floor((tonumber(ramUsed)/1024.0)+.5)
+    ramSize = math.floor((tonumber(ramSize)/1024.0)+.5)
     local color = colorCap(ramUsed,ramSize)
     usedPercentage = math.floor((ramUsed/ramSize*100)*10+0.5)/10
     if fancyData then
@@ -675,7 +675,7 @@ lineFunctions["WM"] = function()
                 dwm = true
             end
         elseif line:find("explorer.exe") and not WM:find("Explorer") then
-            WM = WM.."Explorer, "
+            WM = WM.."Explorer/DWM, "
         elseif line:find("blackbox.exe") and not WM:find("bbLean") then
             WM = WM.."bbLean, "
         elseif line:find("wmfs.exe") and not WM:find("wmfs") then
